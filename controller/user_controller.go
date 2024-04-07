@@ -15,3 +15,8 @@ type IUserController interface {
 type userController struct {
 	uu usecase.IUserUsecase
 }
+
+// usecaseをDIするためのコンストラクタ
+func NewUserController(uu usecase.IUserUsecase) IUserController {
+	return &userController{uu}
+}
