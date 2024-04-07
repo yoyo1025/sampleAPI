@@ -15,3 +15,7 @@ type userUsecase struct {
 	ur repository.IUserRepository
 }
 
+// usecaseにrepositoryをDIするためのコンストラクタ
+func NewuUserUsecase(ur repository.IUserRepository) IUserUsecase {
+	return &userUsecase{ur}
+}
