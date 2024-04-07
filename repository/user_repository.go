@@ -27,3 +27,10 @@ func (ur *userResitory) GetUserByEmail(user *model.User, email string) error {
 	}
 	return nil
 }
+
+func (ur *userResitory) CreateUser(user *model.User) error {
+	if err := ur.db.Create(user).Error; err != nil {
+		return err
+	}
+	return nil
+}
