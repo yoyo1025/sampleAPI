@@ -20,3 +20,10 @@ type userResitory struct {
 func NewUserRepository(db *gorm.DB) IUserRepository {
 	return &userResitory{db}
 }
+
+func (ur *userResitory) GetUserByEmail(user *model.User, email string) error {
+	if err := ur.db.Where("email=?", email).First(user).Error; err != nil {
+		return err
+	}
+	return nil
+}
