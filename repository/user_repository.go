@@ -15,3 +15,8 @@ type IUserRepository interface {
 type userResitory struct {
 	db *gorm.DB
 }
+
+// DBのインスタンスをDIするためのコンストラクタ
+func NewUserRepository(db *gorm.DB) IUserRepository {
+	return &userResitory{db}
+}
