@@ -17,3 +17,7 @@ type ITaskRepository interface {
 type taskRepository struct {
 	db *gorm.DB
 }
+
+func NewTaskRepository(db *gorm.DB) ITaskRepository {
+	return &taskRepository{db}
+}
