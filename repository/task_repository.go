@@ -45,7 +45,7 @@ func (tr *taskRepository) CreateTask(task *model.Task) error {
 	return nil
 }
 
-func (tr *taskRepository) Updatetask(task *model.Task, userId uint, taskId uint) error {
+func (tr *taskRepository) UpdateTask(task *model.Task, userId uint, taskId uint) error {
 	result := tr.db.Model(task).Clauses(clause.Returning{}).Where("id=? AND user_id=?", taskId, userId).Update("title", task.Title)
 	if result.Error != nil {
 		return result.Error
