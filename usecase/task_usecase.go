@@ -80,3 +80,10 @@ func (tu *taskUsecase) UpdateTask(task model.Task, userId uint, taskId uint) (mo
 	}
 	return resTask, nil
 }
+
+func (tu *taskUsecase) DeleteTask(userId uint, taskId uint) error {
+	if err := tu.tr.DeleteTask(userId, taskId); err != nil {
+		return err
+	}
+	return nil
+}
