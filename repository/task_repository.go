@@ -1,9 +1,11 @@
 package repository
 
 import (
+	"fmt"
 	"sampleAPI/model"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type ITaskRepository interface {
@@ -39,6 +41,17 @@ func (tr *taskRepository) GetTaskById(task *model.Task, userId uint, taskId uint
 func (tr *taskRepository) CreateTask(task *model.Task) error {
 	if err := tr.db.Create(task).Error; err != nil {
 		return err
+	}
+	return nil
+}
+
+func (tr *taskRepository) Updatetask(task *model.Task, userId uint, taskId uint) error {
+	result := tr.db.Model(task).Clauses(clause.Returning{}).Where("id=? AND user_id=?", taskId, userId).Update("title", task.Title)
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected < 1 {
+		return fmt.Errorf("object does not exsit")
 	}
 	return nil
 }
