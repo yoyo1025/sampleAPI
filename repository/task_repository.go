@@ -35,3 +35,10 @@ func (tr *taskRepository) GetTaskById(task *model.Task, userId uint, taskId uint
 	}
 	return nil
 }
+
+func (tr *taskRepository) CreateTask(task *model.Task) error {
+	if err := tr.db.Create(task).Error; err != nil {
+		return err
+	}
+	return nil
+}
