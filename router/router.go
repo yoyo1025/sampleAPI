@@ -1,6 +1,7 @@
 package router
 
 import (
+	"net/http"
 	"os"
 	"sampleAPI/controller"
 
@@ -17,6 +18,14 @@ func NewRouter(uc controller.IUserController, tc controller.ITaskController) *ec
 			echo.HeaderAccessControlAllowHeaders, echo.HeaderXCSRFToken},
 		AllowMethods: []string{"GET", "PUT", "POST", "DELETE"},
 		AllowCredentials: true,
+	}))
+	e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
+		CookiePath: "/",
+		CookieDomain: os.Getenv("API_DOMAIN"),
+		CookieHTTPOnly: true,
+		// CookieSameSite: http.SameSiteNoneMode,
+		CookieSameSite: http.SameSiteDefaultMode, // PostMan用
+		// CookieMaxAge: 60,
 	}))
 	e.POST("/signup", uc.SignUp)
 	e.POST("/login", uc.LogIn)
