@@ -3,6 +3,7 @@ package usecase
 import (
 	"sampleAPI/model"
 	"sampleAPI/repository"
+	"sampleAPI/validator"
 )
 
 
@@ -17,6 +18,7 @@ type ITaskUsecase interface {
 
 type taskUsecase struct {
 	tr repository.ITaskRepository
+	tv validator.ITaskValidator
 }
 
 func NewTaskUsecase(tr repository.ITaskRepository) ITaskUsecase {
