@@ -1,6 +1,10 @@
 package controller
 
-import "github.com/labstack/echo/v4"
+import (
+	"sampleAPI/usecase"
+
+	"github.com/labstack/echo/v4"
+)
 
 type ITaskController interface {
 	GetAllTasks(c echo.Context) error
@@ -8,4 +12,8 @@ type ITaskController interface {
 	CreateTask(c echo.Context) error
 	UpdateTask(c echo.Context) error
 	DeleteTask(c echo.Context) error
+}
+
+type taskController struct {
+	tu usecase.ITaskUsecase
 }
