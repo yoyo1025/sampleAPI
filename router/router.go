@@ -1,8 +1,10 @@
 package router
 
 import (
+	"os"
 	"sampleAPI/controller"
 
+	echojwt "github.com/labstack/echo-jwt/v4"
 	"github.com/labstack/echo/v4"
 )
 
@@ -11,5 +13,11 @@ func NewRouter(uc controller.IUserController) *echo.Echo {
 	e.POST("/signup", uc.SignUp)
 	e.POST("/login", uc.LogIn)
 	e.POST("/logout", uc.LogOut)
+	t := e.Group("/tasks")
+	// Useを使ってエンドポイントにミドルウェアを追加できる
+	t.Use(echojwt.WithConfig(echojwt.Config{
+		SigningKey: []byte(os.Getenv("SECRET")),
+		TokenLookup: "cookie:token",
+	}))
 	return e
 }
