@@ -4,6 +4,7 @@ import (
 	"os"
 	"sampleAPI/model"
 	"sampleAPI/repository"
+	"sampleAPI/validator"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -18,6 +19,7 @@ type IUserUsecase interface {
 // usecaseはrepositoryインターフェースだけに依存する
 type userUsecase struct {
 	ur repository.IUserRepository
+	uv validator.IUserValidator
 }
 
 // usecaseにrepositoryをDIするためのコンストラクタ
