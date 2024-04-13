@@ -2,6 +2,12 @@ package validator
 
 import "sampleAPI/model"
 
-type IsUerValidator interface {
+type IUserValidator interface {
 	UserValidate(user model.User) error
+}
+
+type userValidator struct{}
+
+func NewUserValidator() IUserValidator {
+	return &userValidator{}
 }
